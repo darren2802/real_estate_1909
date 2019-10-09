@@ -26,4 +26,31 @@ class House
     total_area
   end
 
+  def price_per_square_foot
+    (@price / area.to_f).round(2)
+  end
+
+  def rooms_sorted_by_area
+    @rooms.sort_by { |room| room.area }
+  end
+
+  def rooms_by_category
+    categories = []
+    @rooms.each do |room|
+      categories << room.category unless categories.include?(room.category)
+    end
+
+    rooms_by_cat = Hash.new
+
+    categories.each do |category|
+      rooms_by_cat[category] = []
+      @rooms.each do |room|
+        rooms_by_cat[category] << room if room.category == category
+      end
+    end
+
+    rooms_by_cat
+
+  end
+
 end
